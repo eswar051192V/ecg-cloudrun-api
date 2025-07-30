@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_ID="your-firebase-or-gcp-project-id"
+PROJECT_ID="ekg-analyse-demo"
 SERVICE_NAME="ecg-api"
 REGION="us-central1"
 
