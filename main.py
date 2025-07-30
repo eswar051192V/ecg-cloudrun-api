@@ -2,8 +2,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import heartpy as hp
+import numpy as np
 import os
 import uvicorn
+
 
 app = FastAPI()
 
@@ -21,7 +23,8 @@ def root():
 @app.post("/analyze-ecg")
 def analyze_ecg(data: ECGData):
     try:
-        wd, m = hp.process(data.ecg_values, sample_rate=data.sample_rate)
+        ecg_array = np.array(data.ecg_values)
+        wd, m = hp.process(ecg_array, sample_rate=data.sample_rate)
 
         def format_val(key, unit="", precision=2, percentage=False):
             val = m.get(key)
