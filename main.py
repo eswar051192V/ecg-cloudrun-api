@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import heartpy as hp
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -58,3 +60,8 @@ def analyze_ecg(data: ECGData):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error analyzing ECG: {str(e)}")
+
+# --- Cloud Run compatibility ---
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
